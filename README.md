@@ -2,6 +2,14 @@
 
 An independent drafting workspace for cybercrime victims in India. Users can describe an incident, answer questions, resume a private conversation, correct details and download a complaint in English, Hindi, Hinglish or Punjabi. Users submit reviewed documents themselves through official channels.
 
+## Features
+
+- Create, save and edit complaint drafts, then download a PDF to submit through official channels.
+- Add image or short video evidence and notes to a complaint.
+- Browse 17 cyber-safety guides in English, Hindi, Hinglish, Punjabi, Bengali and Tamil.
+- Manage private complaints with a member account; editors can also publish language-specific guide notes, but cannot access other users' complaints.
+- Get AI-assisted question wording when an AI provider is configured; otherwise, the built-in questions remain available.
+
 ## Run locally
 
 Use Node.js 22.12+ or 24, npm, PostgreSQL and a Chromium-compatible Linux or desktop host. Create a database owned by a dedicated application role. In psql as a database administrator:
@@ -24,6 +32,18 @@ Put the generated value in AUTH_SECRET. Set DATABASE_URL to your PostgreSQL conn
     npm run dev
 
 Visit http://localhost:3000. An existing Chromium executable can be selected with CHROMIUM_PATH. Production session cookies require HTTPS.
+
+### Environment variables
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `DATABASE_URL` | Yes | PostgreSQL connection URL. |
+| `AUTH_SECRET` | Yes | Secret used to seal sessions; generate a unique value with `openssl rand -base64 48`. |
+| `APP_ORIGIN` | Recommended in production | Public origin used for request-origin checks, without a trailing slash. |
+| `AI_API_KEY` and `AI_MODEL` | No | Set both to enable AI-assisted question wording. If omitted, built-in questions are used. |
+| `AI_BASE_URL` | No | OpenAI-compatible API base URL; defaults to `https://api.openai.com/v1`. |
+| `CHROMIUM_PATH` | No | Path to a system Chromium executable when not using Playwright's installed browser. |
+| `CHROMIUM_SANDBOX` | No | Set to `true` to enable Chromium's OS sandbox on compatible hosts. |
 
 ## Implementation
 
@@ -56,7 +76,7 @@ The visual regression checks cover light appearance with either system theme, de
 
 ## Deployment
 
-Use a Node.js host that can launch Chromium and reach PostgreSQL. Run npm ci, prisma generate, prisma migrate deploy and npm run build, then npm start. Supply production DATABASE_URL, AUTH_SECRET and APP_ORIGIN through the host's secret manager. Install Playwright's Chromium under the runtime account or configure CHROMIUM_PATH. Enable the Chromium OS sandbox with CHROMIUM_SANDBOX=true on compatible hosts. Size worker memory for concurrent PDF requests.
+Use a Node.js host that can launch Chromium and reach PostgreSQL. Run npm ci, prisma generate, prisma migrate deploy and npm run build, then npm start. Supply production DATABASE_URL and AUTH_SECRET through the host's secret manager, and set APP_ORIGIN to the public origin. The included Dockerfile installs Playwright Chromium; on other hosts, install it under the runtime account or configure CHROMIUM_PATH. Enable the Chromium OS sandbox with CHROMIUM_SANDBOX=true on compatible hosts. Size worker memory for concurrent PDF requests.
 
 Before handling real complaints, configure HTTPS, database TLS, storage and backup encryption, a backup deletion schedule, and least-privilege database access. Keep request bodies and cookies out of infrastructure logs. Test access controls, PDF rendering and restores after deployment. Review official reporting links periodically and arrange a security and privacy review. The software does not connect to law-enforcement systems.
 

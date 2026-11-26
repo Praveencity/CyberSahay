@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, FileText, Globe, MessageSquareText, PhoneCall } from "lucide-react";
+import { BookOpen, FileText, Globe, History, MessageSquareText, PhoneCall } from "lucide-react";
 import { groups } from "@/components/guideGroups";
 import { useLanguage } from "@/components/Language";
 import { useScrollReveal } from "@/components/useScrollReveal";
@@ -32,10 +32,10 @@ export default function Home() {
             </span>
           </div>
           <div className="urgent-links">
+            <a className="call" href="tel:1930">{t("Call", "कॉल करें", "ਕਾਲ ਕਰੋ")} 1930</a>
             <a href="https://cybercrime.gov.in">
               {t("Official reporting portal", "आधिकारिक रिपोर्टिंग पोर्टल", "ਅਧਿਕਾਰਤ ਰਿਪੋਰਟਿੰਗ ਪੋਰਟਲ")}
             </a>
-            <a className="call" href="tel:1930">{t("Call", "कॉल करें", "ਕਾਲ ਕਰੋ")} 1930</a>
           </div>
         </div>
       </section>
@@ -62,7 +62,8 @@ export default function Home() {
                 <FileText size={18} aria-hidden="true" />
                 {t("Start a complaint", "शिकायत शुरू करें", "ਸ਼ਿਕਾਇਤ ਸ਼ੁਰੂ ਕਰੋ")}
               </Link>
-              <Link className="hero-link" href="/complaints?filter=drafts">
+              <Link className="btn secondary" href="/complaints?filter=drafts">
+                <History size={18} aria-hidden="true" />
                 {t("Resume a draft", "सहेजा मसौदा खोलें", "ਸੰਭਾਲਿਆ ਖਰੜਾ ਖੋਲ੍ਹੋ")}
               </Link>
             </div>

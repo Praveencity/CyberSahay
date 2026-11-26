@@ -6,3 +6,19 @@ playwright-report/
 test-results/
 
 .local-postgres/
+
+# Local machine and editor artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Generated build and test output
+*.tsbuildinfo
+coverage/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Local course handout
+/CyberSahay CA3 SRS.docx

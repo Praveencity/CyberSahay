@@ -14,7 +14,7 @@ export default function Layout({ children }) {
             Skip to content
           </a>
           <Header />
-          <div id="content">{children}</div>
+          <div id="content" tabIndex={-1}>{children}</div>
           <Footer />
         </LanguageProvider>
       </body>
