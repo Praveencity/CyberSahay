@@ -1,0 +1,7 @@
+CREATE TYPE "Role" AS ENUM ('MEMBER','EDITOR');
+ALTER TABLE "User" ADD COLUMN "role" "Role" NOT NULL DEFAULT 'MEMBER';
+CREATE TABLE "GuideNote" (
+ "topic" TEXT NOT NULL, "language" TEXT NOT NULL, "text" TEXT NOT NULL,
+ "version" INTEGER NOT NULL DEFAULT 1, "updatedAt" TIMESTAMP(3) NOT NULL,
+ PRIMARY KEY ("topic","language")
+);

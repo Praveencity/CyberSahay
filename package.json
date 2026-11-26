@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "@tailwindcss/postcss": "^4.3.5",
+    "iron-session": "^9.1.0",
+    "lucide-react": "^1.77.0",
+    "next": "^16.4.6",
+    "playwright": "^1.65.1",
+    "postcss": "^8.5.33",
+    "prisma": "^6.19.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.5"
+  },
+  "name": "cybersahay",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build --webpack",
+    "start": "next start",
+    "test": "node --test tests/workflow.test.mjs",
+    "lint": "eslint src tests",
+    "role": "node --env-file=.env scripts/set-role.mjs"
+  },
+  "private": true,
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6"
+  }
+}

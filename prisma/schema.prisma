@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String      @id @default(cuid())
+  email          String      @unique
+  name           String
+  language       String      @default("en")
+  passwordHash   String
+  role           Role        @default(MEMBER)
+  sessionVersion Int         @default(0)
+  createdAt      DateTime    @default(now())
+  complaints     Complaint[]
+}
+
+model Complaint {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category  String
+  language  String
+  status    String   @default("IN_PROGRESS")
+  version   Int      @default(0)
+  answers   Json     @default("{}")
+  messages  Json     @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  evidence  EvidenceFile[]
+
+  @@index([userId, createdAt, id])
+}
+
+model EvidenceFile {
+  id          String    @id @default(cuid())
+  complaintId String
+  complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  name        String
+  mediaType   String
+  size        Int
+  note        String    @default("")
+  bytes       Bytes
+  createdAt   DateTime  @default(now())
+
+  @@index([complaintId, createdAt, id])
+}
+
+model RateBucket {
+  id        String   @id
+  hits      Int      @default(1)
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
+enum Role {
+  MEMBER
+  EDITOR
+}
+
+model GuideNote {
+  topic String
+  language String
+  text String
+  version Int @default(1)
+  updatedAt DateTime @updatedAt
+  @@id([topic,language])
+}

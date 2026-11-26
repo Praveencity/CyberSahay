@@ -1,0 +1,13 @@
+**
+!Dockerfile
+!package.json
+!package-lock.json
+!next.config.mjs
+!postcss.config.mjs
+!jsconfig.json
+!prisma/
+!prisma/**
+!public/
+!public/**
+!src/
+!src/**
