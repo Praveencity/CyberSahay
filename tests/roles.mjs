@@ -51,9 +51,12 @@ try {
   const id = (await draft.json()).complaint.id;
   await db.user.update({ where: { email }, data: { role: "EDITOR" } });
   assert.equal((await page.request.get("/api/complaints/" + id)).status(), 404);
-  await page.goto("/editor");
-  await page.getByLabel("Guide", { exact: true }).selectOption(topic);
-  await page.getByLabel("Note language").selectOption(language);
+  const editorPage = await page.goto("/editor");
+  assert.equal(editorPage?.status(), 200);
+  assert.equal(new URL(page.url()).pathname, "/editor");
+  const editor = page.getByRole("main");
+  await editor.getByRole("combobox", { name: "Guide", exact: true }).selectOption(topic);
+  await editor.getByRole("combobox", { name: "Note language", exact: true }).selectOption(language);
   const note = "ਸੰਭਾਲਿਆ ਟੈਸਟ ਨੋਟ";
   await page.getByLabel("Public safety note").fill(note);
   await page.getByRole("button", { name: "Publish note" }).click();

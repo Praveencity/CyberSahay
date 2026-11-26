@@ -68,13 +68,13 @@ try {
         .getByRole("log")
         .getByText(description, { exact: true })
         .waitFor();
-      if (width < 600)
+      const previewArea = width < 600
+        ? page.getByRole("dialog", { name: "Complaint details" })
+        : page.locator(".conversation-header");
+      if (width < 600) {
         await page.getByRole("button", { name: "Complaint details" }).click();
-      await page
-        .getByRole("link", { name: "Preview complaint" })
-        .filter({ visible: true })
-        .first()
-        .click();
+      }
+      await previewArea.getByRole("link", { name: "Preview complaint", exact: true }).click();
       await page.getByText(description, { exact: true }).first().waitFor();
       await page.getByRole("button", { name: "Edit details" }).click();
       await page
