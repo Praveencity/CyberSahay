@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LockKeyhole } from "lucide-react";
+import { roleLabelKeys } from "./words";
 import {
   api,
   Field,
@@ -25,7 +26,7 @@ export function Auth({ register = false }) {
         const u = new URL(raw, location.origin);
         if (
           u.origin === location.origin &&
-          /^\/(assistant|complaints|dashboard|profile|editor)(\/|$)/.test(
+          /^\/(assistant|complaints|dashboard|profile|editor|admin)(\/|$)/.test(
             u.pathname,
           )
         )
@@ -175,10 +176,13 @@ export function Profile() {
           <form className="portal-card" onSubmit={(e) => submit(e, "update")}>
             <p className="portal-access">
               {w("access")} ·{" "}
-              {w(user.role === "EDITOR" ? "editorRole" : "memberRole")}
+              {w(roleLabelKeys[user.role])}
             </p>
             {user.role === "EDITOR" && (
               <Link href="/editor">{w("editorRole")}</Link>
+            )}
+            {user.role === "ADMIN" && (
+              <Link href="/admin">{w("manageRoles")}</Link>
             )}
             <Field label={w("email")} value={user.email} readOnly />
             <Field

@@ -7,7 +7,7 @@ An independent drafting workspace for cybercrime victims in India. Users can des
 - Create, save and edit complaint drafts, then download a PDF to submit through official channels.
 - Add image or short video evidence and notes to a complaint.
 - Browse 17 cyber-safety guides in English, Hindi, Hinglish, Punjabi, Bengali and Tamil.
-- Manage private complaints with a member account; editors can also publish language-specific guide notes, but cannot access other users' complaints.
+- Manage private complaints with an account. Editors can publish language-specific guide notes, and admins can manage Member and Editor roles. Complaint access is restricted to the owner.
 - Get AI-assisted question wording when an AI provider is configured; otherwise, the built-in questions remain available.
 
 ## Run locally
@@ -80,13 +80,20 @@ Use a Node.js host that can launch Chromium and reach PostgreSQL. Run npm ci, pr
 
 Before handling real complaints, configure HTTPS, database TLS, storage and backup encryption, a backup deletion schedule, and least-privilege database access. Keep request bodies and cookies out of infrastructure logs. Test access controls, PDF rendering and restores after deployment. Review official reporting links periodically and arrange a security and privacy review. The software does not connect to law-enforcement systems.
 
-## Roles and the awareness library
+## Account roles and the awareness library
 
 Visitors can search 17 safety guides and select English, Hindi, Hinglish, Punjabi, Bengali or Tamil in the Cyber Awareness library. Registered members can prepare and manage their own complaints. Editors have the same private workspace plus a Guide editor link to publish or remove a language-specific public note on each guide. Their role grants no access to other accounts’ complaints. The main guide text is maintained in src/config/awareness.js.
 
-After migrating, all existing and new accounts are members. A database operator can assign or revoke publishing permissions for an existing, verified account from the project directory:
+New accounts start as members. After applying migrations and regenerating Prisma Client, a database operator can assign a role to an existing account from the project directory:
 
+    npm run role -- registered-email@example.com ADMIN
     npm run role -- registered-email@example.com EDITOR
     npm run role -- registered-email@example.com MEMBER
 
-Refresh the website after changing a role. The editor API checks the current database role on every request. Publishing uses version checks to prevent concurrent edits from overwriting each other.
+An admin can open **Admin** in the navigation, look up an account by its exact registered email, and switch it between Member and Guide editor. The operator command manages Admin assignments and revocations. Admin access grants account role management. Guide publishing requires Editor access. Complaint access is restricted to the owner for every role.
+
+Refresh the website after changing a role. The admin and editor APIs check the current database role on every request. Publishing uses version checks to prevent concurrent edits from overwriting each other.
+
+To exercise account roles against a running instance and its disposable database:
+
+    TEST_BASE_URL=http://localhost:3000 node --env-file=.env tests/roles.mjs

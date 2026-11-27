@@ -32,6 +32,9 @@ export function Header() {
     ...(user?.role === "EDITOR"
       ? [["/editor", t("Guide editor", "मार्गदर्शिका संपादक", "ਗਾਈਡ ਸੰਪਾਦਕ")]]
       : []),
+    ...(user?.role === "ADMIN"
+      ? [["/admin", t("Admin", "प्रशासक", "ਪ੍ਰਬੰਧਕ")]]
+      : []),
     ["/help", t("Help", "सहायता", "ਮਦਦ")],
   ];
   const activeHref = items.find(([href]) => path === href || (href !== "/" && path.startsWith(href + "/")))?.[0];

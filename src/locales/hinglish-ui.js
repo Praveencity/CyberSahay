@@ -1,4 +1,5 @@
 export const hinglishUi = {
+  "Admins can look up account names and email addresses to manage Member and Guide editor roles.": "Member aur Guide editor roles manage karne ke liye admins account ke naam aur email address dekh sakte hain.",
   "Guide editor": "Guide editor",
   "Publish a local safety note on a guide. Readers see it in the selected language.": "Guide par safety note publish karein. Readers ko note chuni hui language mein dikhega.",
   "Guide": "Guide",

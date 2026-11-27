@@ -419,6 +419,13 @@ export function Information({ kind }) {
         <>
           <p>
             {t(
+              "Admins can look up account names and email addresses to manage Member and Guide editor roles.",
+              "प्रशासक सदस्य और मार्गदर्शिका संपादक भूमिकाएँ प्रबंधित करने के लिए खातों के नाम और ईमेल पते देख सकते हैं।",
+              "ਪ੍ਰਬੰਧਕ ਮੈਂਬਰ ਅਤੇ ਗਾਈਡ ਸੰਪਾਦਕ ਭੂਮਿਕਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰਨ ਲਈ ਖਾਤਿਆਂ ਦੇ ਨਾਂ ਅਤੇ ਈਮੇਲ ਪਤੇ ਵੇਖ ਸਕਦੇ ਹਨ।",
+            )}
+          </p>
+          <p>
+            {t(
               "Evidence files and notes are stored with your complaint. Only your signed-in account can retrieve them through CyberSahay. Removing a file, its complaint, or your account removes the associated files from the active database.",
               "साक्ष्य फ़ाइलें और नोट शिकायत के साथ सहेजे जाते हैं। CyberSahay में आपके साइन इन खाते से ही उन्हें पाया जा सकता है। फ़ाइल, उससे जुड़ी शिकायत या खाता हटाने से संबंधित फ़ाइलें सक्रिय डेटाबेस से हट जाती हैं।",
               "ਸਬੂਤ ਦੀਆਂ ਫ਼ਾਈਲਾਂ ਅਤੇ ਨੋਟ ਤੁਹਾਡੀ ਸ਼ਿਕਾਇਤ ਨਾਲ ਸੰਭਾਲੇ ਜਾਂਦੇ ਹਨ। CyberSahay ਵਿੱਚ ਤੁਹਾਡੇ ਸਾਈਨ ਇਨ ਖਾਤੇ ਰਾਹੀਂ ਹੀ ਉਹ ਮਿਲ ਸਕਦੇ ਹਨ। ਫ਼ਾਈਲ, ਉਸ ਦੀ ਸ਼ਿਕਾਇਤ ਜਾਂ ਖਾਤਾ ਮਿਟਾਉਣ ਨਾਲ ਸਬੰਧਿਤ ਫ਼ਾਈਲਾਂ ਚਾਲੂ ਡਾਟਾਬੇਸ ਤੋਂ ਮਿਟ ਜਾਂਦੀਆਂ ਹਨ।",

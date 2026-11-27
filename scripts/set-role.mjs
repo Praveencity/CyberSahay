@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const [email, role] = process.argv.slice(2);
-if (!email || !["MEMBER", "EDITOR"].includes(role)) {
-  console.error("Usage: npm run role -- registered-email MEMBER|EDITOR");
+if (!email || !["MEMBER", "EDITOR", "ADMIN"].includes(role)) {
+  console.error("Usage: npm run role -- registered-email MEMBER|EDITOR|ADMIN");
   process.exit(1);
 }
 const db = new PrismaClient();

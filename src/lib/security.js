@@ -106,6 +106,12 @@ export function string(value, min, max, message = "Invalid field.") {
     fail(400, message);
   return value.trim();
 }
+export function emailAddress(value) {
+  const email = string(value, 3, 254).toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    fail(400, "Invalid email address.");
+  return email;
+}
 export function language(value) {
   if (typeof value !== "string" || !Object.hasOwn(portalLanguages, value)) fail(400, "Invalid language.");
   return value;

@@ -351,6 +351,16 @@ const dictionary = {
   access: ["Account access", "खाता अधिकार", "ਖਾਤੇ ਦੀ ਪਹੁੰਚ", "Account access"],
   editorRole: ["Guide editor", "मार्गदर्शिका संपादक", "ਗਾਈਡ ਸੰਪਾਦਕ", "Guide editor"],
   memberRole: ["Member", "सदस्य", "ਮੈਂਬਰ", "Member"],
+  adminRole: ["Admin", "प्रशासक", "ਪ੍ਰਬੰਧਕ", "Admin"],
+  manageRoles: ["Manage account roles", "खाते की भूमिकाएँ प्रबंधित करें", "ਖਾਤੇ ਦੀਆਂ ਭੂਮਿਕਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ", "Account roles manage karein"],
+  roleLookupHelp: [
+    "Enter the registered email address to change an account’s Member or Guide editor role.",
+    "किसी खाते की सदस्य या मार्गदर्शिका संपादक भूमिका बदलने के लिए पंजीकृत ईमेल पता दर्ज करें।",
+    "ਕਿਸੇ ਖਾਤੇ ਦੀ ਮੈਂਬਰ ਜਾਂ ਗਾਈਡ ਸੰਪਾਦਕ ਭੂਮਿਕਾ ਬਦਲਣ ਲਈ ਰਜਿਸਟਰ ਕੀਤਾ ਈਮੇਲ ਪਤਾ ਦਾਖ਼ਲ ਕਰੋ।",
+    "Member ya Guide editor role badalne ke liye registered email address daalein.",
+  ],
+  findAccount: ["Find account", "खाता खोजें", "ਖਾਤਾ ਲੱਭੋ", "Account khojein"],
+  saveRole: ["Save role", "भूमिका सहेजें", "ਭੂਮਿਕਾ ਸੰਭਾਲੋ", "Role save karein"],
   rail: ["Workspace", "कार्यक्षेत्र", "ਕਾਰਜ ਖੇਤਰ", "Workspace"],
   languageNames: ["English", "हिन्दी", "ਪੰਜਾਬੀ", "Hinglish"],
   recipient: [
@@ -366,5 +376,6 @@ const dictionary = {
     "Kripya di hui jaankari ki jaanch karke uchit karvaai karein.",
   ],
 };
+export const roleLabelKeys = { MEMBER: "memberRole", EDITOR: "editorRole", ADMIN: "adminRole" };
 export const words = (key, lang) =>
   dictionary[key]?.[{ en: 0, hi: 1, pa: 2, "hi-Latn": 3 }[lang] ?? 0] ?? key;

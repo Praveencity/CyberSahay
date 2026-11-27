@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import {
   body,
   current,
+  emailAddress,
   endpoint,
   fail,
   hash,
@@ -31,9 +32,7 @@ export const POST = endpoint(async (req) => {
     return { user: null };
   }
   if (["register", "login"].includes(d.action)) {
-    const email = string(d.email, 3, 254).toLowerCase();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      fail(400, "Invalid email address.");
+    const email = emailAddress(d.email);
     await limit("auth:" + email, 12, 900);
     await limit("auth-global", 600, 60);
     const password = passwordValue(d.password, d.action === "register");
