@@ -18,6 +18,7 @@ export function Auth({ register = false }) {
   const { w, lang, setLang } = useText(),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
+    [adminLogin, setAdminLogin] = useState(false),
     [next, setNext] = useState("/dashboard");
   useEffect(() => {
     const raw = new URLSearchParams(location.search).get("next");
@@ -29,8 +30,10 @@ export function Auth({ register = false }) {
           /^\/(assistant|complaints|dashboard|profile|editor|admin)(\/|$)/.test(
             u.pathname,
           )
-        )
-          setNext(u.pathname + u.search);
+        ) {
+          if (/^\/admin\/?$/.test(u.pathname)) setAdminLogin(true);
+          else setNext(u.pathname + u.search);
+        }
       } catch {}
     }
   }, []);
@@ -49,10 +52,10 @@ export function Auth({ register = false }) {
         action: register ? "register" : "login",
         email: form.email,
         password: form.password,
-        ...(register ? { name: form.name, language: lang } : {}),
+        ...(register ? { name: form.name, language: lang } : { adminLogin }),
       });
       if (result.user?.language) setLang(result.user.language);
-      location.assign(next);
+      location.assign(!register && adminLogin ? "/admin" : next);
     } catch (err) {
       setError(err.message);
       setBusy(false);
@@ -65,6 +68,19 @@ export function Auth({ register = false }) {
         <h1>{w(register ? "join" : "welcome")}</h1>
         <p>{w("authIntro")}</p>
         <form onSubmit={submit}>
+          {!register && (
+            <label className="portal-field">
+              {w("signInAs")}
+              <select value={adminLogin ? "admin" : "user"} disabled={busy}
+                onChange={(event) => {
+                  setAdminLogin(event.target.value === "admin");
+                  setError("");
+                }}>
+                <option value="user">{w("userLogin")}</option>
+                <option value="admin">{w("adminRole")}</option>
+              </select>
+            </label>
+          )}
           {register && (
             <Field
               label={w("name")}

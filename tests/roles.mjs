@@ -46,7 +46,7 @@ try {
     });
     const { user } = await reg.json();
     assert.equal(user.role, "MEMBER");
-    accounts.push({ page, email, id: user.id });
+    accounts.push({ page, email, password, id: user.id });
   }
   const [editorAccount, { page: member }, adminAccount] = accounts;
   const { page, email } = editorAccount;
@@ -76,6 +76,25 @@ try {
   const id = (await draft.json()).complaint.id;
 
   execFileSync(process.execPath, ["scripts/set-role.mjs", adminAccount.email, "ADMIN"]);
+  const loginPage = await browser.newPage({ baseURL: origin });
+  await loginPage.goto("/admin");
+  const mode = loginPage.getByRole("combobox", { name: "Sign in as" });
+  await mode.locator('option:checked[value="admin"]').waitFor({ state: "attached" });
+  await loginPage.getByLabel("Email address").fill(editorAccount.email);
+  await loginPage.getByLabel("Password", { exact: true }).fill(editorAccount.password);
+  await loginPage.getByRole("button", { name: "Sign in", exact: true }).click();
+  await loginPage.getByRole("alert").getByText("This account does not have Admin access.").waitFor();
+  await mode.selectOption("user");
+  await loginPage.getByRole("button", { name: "Sign in", exact: true }).click();
+  await loginPage.waitForURL("**/dashboard");
+  await loginPage.context().clearCookies();
+  await loginPage.goto("/login");
+  await mode.selectOption("admin");
+  await loginPage.getByLabel("Email address").fill(adminAccount.email);
+  await loginPage.getByLabel("Password", { exact: true }).fill(adminAccount.password);
+  await loginPage.getByRole("button", { name: "Sign in", exact: true }).click();
+  await loginPage.waitForURL("**/admin");
+  await loginPage.close();
   assert.equal((await admin.request.get("/api/complaints/" + id)).status(), 404);
   assert.equal((await admin.request.get("/api/editor?topic=qr-refund&language=pa")).status(), 403);
   const found = await lookup(admin);

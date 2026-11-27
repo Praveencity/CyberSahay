@@ -60,6 +60,8 @@ export const POST = endpoint(async (req) => {
         user?.passwordHash || "dummy." + "00".repeat(64),
       );
       if (!user || !ok) fail(401, "Invalid email or password.");
+      if (d.adminLogin === true && user.role !== "ADMIN")
+        fail(403, "This account does not have Admin access.");
     }
     s.uid = user.id;
     s.version = user.sessionVersion;

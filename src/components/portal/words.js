@@ -352,6 +352,12 @@ const dictionary = {
   editorRole: ["Guide editor", "मार्गदर्शिका संपादक", "ਗਾਈਡ ਸੰਪਾਦਕ", "Guide editor"],
   memberRole: ["Member", "सदस्य", "ਮੈਂਬਰ", "Member"],
   adminRole: ["Admin", "प्रशासक", "ਪ੍ਰਬੰਧਕ", "Admin"],
+  signInAs: ["Sign in as", "इस रूप में साइन इन करें", "ਇਸ ਵਜੋਂ ਸਾਈਨ ਇਨ ਕਰੋ", "Kis role se sign in karein"],
+  userLogin: ["User", "उपयोगकर्ता", "ਵਰਤੋਂਕਾਰ", "User"],
+  "This account does not have Admin access.": [
+    "This account does not have Admin access.", "इस खाते को प्रशासक की अनुमति नहीं है।",
+    "ਇਸ ਖਾਤੇ ਨੂੰ ਪ੍ਰਬੰਧਕ ਦੀ ਪਹੁੰਚ ਨਹੀਂ ਹੈ।", "Is account ke paas Admin access nahi hai.",
+  ],
   manageRoles: ["Manage account roles", "खाते की भूमिकाएँ प्रबंधित करें", "ਖਾਤੇ ਦੀਆਂ ਭੂਮਿਕਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰੋ", "Account roles manage karein"],
   roleLookupHelp: [
     "Enter the registered email address to change an account’s Member or Guide editor role.",
